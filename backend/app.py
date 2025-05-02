@@ -1,13 +1,87 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 import pickle
 import os
+import csv
+import smtplib
+from email.mime.text import MIMEText
 from utils.link_checker import check_links
 from email_report import send_cyber_complaint
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
+# Load model and vectorizer
 model = pickle.load(open('model/scam_model.pkl', 'rb'))
 vectorizer = pickle.load(open('model/vectorizer.pkl', 'rb'))
+
+# Aadhaar Validation
+def is_valid_aadhaar(aadhaar):
+    return aadhaar.isdigit() and len(aadhaar) == 12
+
+# Admin Alert Email
+def send_admin_alert():
+    sender_email = "sg415218@gmail.com"
+    receiver_email = "e1062240038@timscdrmumbai.in"
+    password = "Ajay@22102002"  # Use App Password
+
+    subject = "🚨 Feedback Threshold Reached!"
+    body = "More than 2 feedbacks received. Kindly review and retrain the model."
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = receiver_email
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, msg.as_string())
+        print("✅ Admin Alert Sent")
+    except Exception as e:
+        print(f"❌ Failed to send alert: {e}")
+
+# --- ROUTES ---
+
+@app.route('/')
+def home():
+    return redirect('/login')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        aadhaar = request.form['aadhaar']
+
+        if not is_valid_aadhaar(aadhaar):
+            return '''
+                <script>
+                    alert("❌ Invalid Aadhaar Number! It must be 12 digits.");
+                    window.history.back();
+                </script>
+            '''
+        print(f"New Login -> Name: {name}, Email: {email}, Aadhaar: {aadhaar}")
+        return '''
+            <script>
+                alert("✅ Login Successful! Welcome to Bank Message Verifier.");
+                window.location.href = "/welcome";
+            </script>
+        '''
+    return render_template('login.html')
+
+@app.route('/welcome')
+def welcome():
+    return '''
+        <html>
+            <head>
+                <title>Welcome</title>
+            </head>
+            <body style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;">
+                <h1>🎉 Login Successful!</h1>
+                <a href="http://localhost:8503" style="margin-top:20px; padding:15px 30px; background-color:#4CAF50; color:white; text-decoration:none; border-radius:10px; font-size:18px;">🚀 Go to Analyzer</a>
+            </body>
+        </html>
+    '''
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
@@ -35,6 +109,37 @@ def report():
     send_cyber_complaint(sender, message)
 
     return jsonify({"status": "reported", "message": "Complaint sent to cybersecurity."})
+
+@app.route('/feedback', methods=['POST'])
+def feedback():
+    data = request.json
+    message = data.get("message")
+    sender = data.get("sender")
+    user_reason = data.get("user_reason")
+
+    feedback_file = 'data/new_training_data.csv'
+
+    # Ensure folder exists
+    os.makedirs(os.path.dirname(feedback_file), exist_ok=True)
+
+    # Save feedback
+    file_exists = os.path.isfile(feedback_file)
+    with open(feedback_file, mode='a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            writer.writerow(['message', 'sender', 'user_reason', 'label'])  # Header
+        writer.writerow([message, sender, user_reason, 1])  # 1 means scam
+
+    # 🚨 Check if alert needed
+    with open(feedback_file, mode='r', encoding='utf-8') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip header
+        feedback_entries = list(reader)
+
+        if len(feedback_entries) >= 2:
+            send_admin_alert()
+
+    return jsonify({"status": "success", "message": "📝 Feedback recorded. Thank you for improving our system!"})
 
 if __name__ == '__main__':
     app.run(debug=True)

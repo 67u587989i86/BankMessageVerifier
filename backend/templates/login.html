@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Message Verifier - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .emoji {
+      position: absolute;
+      animation: float 8s infinite linear;
+      font-size: 2rem;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateX(-100vw);
+      }
+      100% {
+        transform: translateX(100vw);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating emojis -->
+  <div class="emoji" style="top: 10%; animation-delay: 0s;">🐆</div>
+  <div class="emoji" style="top: 30%; animation-delay: 2s;">⚡</div>
+  <div class="emoji" style="top: 60%; animation-delay: 1s;">🐆</div>
+  <div class="emoji" style="top: 80%; animation-delay: 3s;">⚡</div>
+
+  <!-- Login container -->
+  <div class="bg-white bg-opacity-90 p-10 rounded-2xl shadow-2xl w-full max-w-md z-10">
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">🔒 Secure Login</h2>
+    <form method="POST" action="/login">
+      <div class="mb-4">
+        <label class="block text-gray-700">Name</label>
+        <input name="name" required class="w-full p-2 rounded border" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Email</label>
+        <input type="email" name="email" required class="w-full p-2 rounded border" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Password</label>
+        <input type="password" name="password" required class="w-full p-2 rounded border" />
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700">Aadhaar Number</label>
+        <input type="text" name="aadhaar" required maxlength="12" class="w-full p-2 rounded border" />
+      </div>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded w-full font-semibold">
+        Login
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>

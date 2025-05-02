@@ -1,6 +1,7 @@
-flask ,
-streamlit , 
-scikit-learn ,
-pandas ,
-nltk ,
-requests 
+Flask
+streamlit
+scikit-learn
+pandas
+numpy
+smtplib
+email-validator
