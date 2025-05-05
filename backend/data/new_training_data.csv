@@ -1,5 +1,68 @@
-message,sender,user_reason,label
-Click to get 50K,777555333,50k,1
-it is scam,ajay,it is,1
-it is scam no 2,ajay2,it is 2nd scam,1
-its a 5000 lottery ,456789133,fake lottery,1
+spam,Its a scam man.
+spam,You won a free iPhone! Click here.
+ham,Hello! Your payment is successful.
+spam,URGENT! Call now to claim reward!
+ham,www.hdfc.com.
+ham,Your Kotak bank e-statement is ready at www.kotak.com
+ham,Login to your HDFC NetBanking account securely via https://netbanking.hdfcbank.com
+ham,We’ve updated your Canara Bank passbook. View it at www.canarabank.com
+ham,Axis Bank alert: Your statement is available at https://www.axisbank.com
+ham,Welcome to IDFC FIRST Bank! Access your account here: www.idfcfirstbank.com
+ham,Download your Punjab National Bank e-passbook from www.pnbindia.in
+ham,BOB NetBanking login: https://www.bobibanking.com
+ham,Check your UCO Bank balance at www.ucobank.com
+ham,SBI Alert: Your profile was accessed from a new device. Review at www.onlinesbi.com
+ham,Indian Bank: Your account is now KYC compliant. Know more at www.indianbank.in
+ham,Your Union Bank of India mini-statement is available at www.unionbankofindia.co.in
+ham,Access your Bandhan Bank account at www.bandhanbank.com
+ham,Welcome to DCB Bank. View your recent transactions at www.dcbbank.com
+ham,Federal Bank: Monthly statement ready. Visit www.federalbank.co.in
+ham,Login securely to your IndusInd Bank account at www.indusind.com
+ham,Your RBL Bank credit card bill is ready. Pay at www.rblbank.com
+ham,Karur Vysya Bank: New offers available in your netbanking portal at www.kvb.co.in
+ham,South Indian Bank: Download your e-statement from www.southindianbank.com
+ham,Check your Saraswat Bank balance at www.saraswatbank.com
+ham,ESAF Bank update: Your account was accessed. Review at www.esafbank.com
+ham,Welcome to Nainital Bank. Access your account dashboard at www.nainitalbank.co.in
+ham,Your Tamilnad Mercantile Bank statement is now available at www.tmb.in
+ham,AU Small Finance Bank alert: Your FD account has been renewed. Login at www.aubank.in
+ham,Access your Equitas Small Finance Bank account at www.equitasbank.com
+ham,Suryoday Bank: Your transaction was successful. View details at www.suryodaybank.com
+ham,Check your City Union Bank account summary at www.cityunionbank.com
+ham,North East Small Finance Bank e-passbook is ready. Visit www.nesfb.com
+ham,Your ESAF Small Finance Bank loan statement is available at www.esafbank.com
+ham,Jana Small Finance Bank: Your savings account was credited. Login at www.janabank.com
+ham,Utkarsh Small Finance Bank update: Your mobile banking is active. Visit www.utkarsh.bank
+spam,Congratulations! You've won ₹50000. Click here to claim: bit.ly/cashprize
+spam,Your KYC is incomplete. Update now to avoid account freeze: http://verify-bank-details.info
+spam,URGENT: Your ATM card will be blocked! Verify immediately: scamupdate.net
+spam,Claim your free Amazon gift card worth ₹5000 now! tinyurl.com/amzfree
+spam,Final warning! Pay ₹199 now to avoid penalty. upi-secure.in/pay
+spam,Dear user you’ve received a cashback reward. Collect at rewardzone.click
+spam,Your SBI account is on hold. Click here to unblock: sbi-security-check.com
+spam,You’ve been selected for a FREE loan offer! Apply now: fastloan.today
+spam,Flipkart Mega Sale! Win an iPhone for ₹1 only. Claim now: click2win.in
+spam,Get free DTH recharge! Limited time offer. Redeem at: freeservice-now.com
+spam,its not a scam 
+ham,Your A/C XX3421 is credited with ₹2000 on 03-May-2025 Avl Bal ₹15980 Thank you for banking with IDFC FIRST Bank
+ham,Dear Customer ₹8000 has been deposited in your HDFC Bank A/C XX1122 on 02-May-2025 Avl Bal ₹24120
+ham,Your ICICI Bank Credit Card statement is generated for ₹4350 Due date 12-May-2025 Login to netbanking for details
+ham,Rs2300 credited to your SBI account XX9900 on 01-May-2025 via NEFT Avl Bal ₹13700
+ham,Thank you for using Axis Bank UPI ₹1150 debited from A/C XX8721 UPI Ref 51326499822
+ham,Kotak Mahindra Bank ₹500 cashback credited to your 811 Wallet Offer valid till 30-April-2025
+ham,Your YES BANK A/C XX1221 is credited with ₹10000 on 03-May-2025 Avl Bal ₹28500
+ham,IndusInd Bank ₹3000 transferred to your A/C XX7865 via IMPS Avl Bal ₹42150
+ham,Federal Bank Your Debit Card has been used for ₹720 at Amazon If not you call 1800-420-1199
+ham,Canara Bank Your OTP for net banking login is 239184 Do not share this with anyone
+ham,BOB ₹15000 credited via NEFT to your A/C XX6677 on 03-May Avl Bal ₹39000
+spam,Alert Your IDFC A/C will be suspended Click here to update KYC info http://idfc-verify.info
+spam,Congratulations You won a ₹100000 HDFC gift Claim now http://hdfc-winner.cc
+spam,Your ICICI Bank A/C has been frozen Urgently verify your PAN here http://icici-check.net
+spam,Dear user your SBI account is under review Reactivate here http://sbi-update.co.in
+spam,Axis Bank Final reminder to claim ₹2000 cashback Visit http://axiscashbonus.in
+spam,Kotak Lucky Draw Winner Claim your ₹50000 cash today Click http://kotak-wins.com
+spam,Your YES BANK account is blocked Validate details now at http://yesbank-support.xyz
+spam,IndusInd customer alert Unauthorized login detected Resolve at http://secure-indusind.cc
+spam,Federal Bank You’ve won an iPhone 14 Fill your info here http://federalprizes.live
+spam,BOB Alert Your account is locked Verify at http://bobverify.info
+

@@ -1,17 +1,31 @@
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, session
 import pickle
 import os
 import csv
+import sqlite3
 import smtplib
 from email.mime.text import MIMEText
 from utils.link_checker import check_links
 from email_report import send_cyber_complaint
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = 'securekey123'
 
 # Load model and vectorizer
 model = pickle.load(open('model/scam_model.pkl', 'rb'))
 vectorizer = pickle.load(open('model/vectorizer.pkl', 'rb'))
+
+def init_db():
+    conn = sqlite3.connect('app.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY,
+                        name TEXT,
+                        email TEXT UNIQUE,
+                        password TEXT,
+                        aadhaar TEXT)''')
+    conn.commit()
+    conn.close()
 
 # Aadhaar Validation
 def is_valid_aadhaar(aadhaar):
@@ -45,6 +59,30 @@ def send_admin_alert():
 def home():
     return redirect('/login')
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        aadhaar = request.form['aadhaar']
+
+        if not is_valid_aadhaar(aadhaar):
+            return '''<script>alert("❌ Invalid Aadhaar!"); window.history.back();</script>'''
+
+        try:
+            conn = sqlite3.connect('app.db')
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO users (name, email, password, aadhaar) VALUES (?, ?, ?, ?)",
+                           (name, email, password, aadhaar))
+            conn.commit()
+            return redirect('/login')
+        except sqlite3.IntegrityError:
+            return '''<script>alert("⚠️ Email already registered!"); window.history.back();</script>'''
+        finally:
+            conn.close()
+    return render_template('register.html')  # ✅ updated to match new filename
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -53,32 +91,31 @@ def login():
         password = request.form['password']
         aadhaar = request.form['aadhaar']
 
-        if not is_valid_aadhaar(aadhaar):
-            return '''
-                <script>
-                    alert("❌ Invalid Aadhaar Number! It must be 12 digits.");
-                    window.history.back();
-                </script>
-            '''
-        print(f"New Login -> Name: {name}, Email: {email}, Aadhaar: {aadhaar}")
-        return '''
-            <script>
-                alert("✅ Login Successful! Welcome to Bank Message Verifier.");
-                window.location.href = "/welcome";
-            </script>
-        '''
+        conn = sqlite3.connect('app.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM users WHERE email = ? AND password = ? AND name = ? AND aadhaar = ?",
+                       (email, password, name, aadhaar))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            session['user'] = user[0]
+            return redirect('/welcome')
+        else:
+            return '''<script>alert("❌ Invalid credentials!"); window.history.back();</script>'''
     return render_template('login.html')
 
 @app.route('/welcome')
 def welcome():
-    return '''
+    user_name = session.get('user', 'User')  # fallback to 'User' if not found
+    return f'''
         <html>
             <head>
                 <title>Welcome</title>
             </head>
             <body style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;">
-                <h1>🎉 Login Successful!</h1>
-                <a href="http://localhost:8503" style="margin-top:20px; padding:15px 30px; background-color:#4CAF50; color:white; text-decoration:none; border-radius:10px; font-size:18px;">🚀 Go to Analyzer</a>
+                <h1>🎉 Login Successful, Welcome {user_name}!😊😊</h1>
+                <a href="http://localhost:8502" style="margin-top:20px; padding:15px 30px; background-color:#4CAF50; color:white; text-decoration:none; border-radius:10px; font-size:18px;">🚀 Go to Analyzer</a>
             </body>
         </html>
     '''
@@ -127,8 +164,8 @@ def feedback():
     with open(feedback_file, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         if not file_exists:
-            writer.writerow(['message', 'sender', 'user_reason', 'label'])  # Header
-        writer.writerow([message, sender, user_reason, 1])  # 1 means scam
+            writer.writerow(['label', 'message'])  # Header
+        writer.writerow(["spam", message])  
 
     # 🚨 Check if alert needed
     with open(feedback_file, mode='r', encoding='utf-8') as file:
@@ -142,4 +179,5 @@ def feedback():
     return jsonify({"status": "success", "message": "📝 Feedback recorded. Thank you for improving our system!"})
 
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True)

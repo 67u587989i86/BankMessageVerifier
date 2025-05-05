@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bank Message Verifier - Login</title>
+  <title>Bank Message Verifier - Register</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -38,17 +38,17 @@
 <body>
 
   <!-- Floating emojis -->
-  <div class="emoji" style="top: 10%; animation-delay: 0s;">🐆</div>
-  <div class="emoji" style="top: 30%; animation-delay: 2s;">⚡</div>
-  <div class="emoji" style="top: 60%; animation-delay: 1s;">🐆</div>
-  <div class="emoji" style="top: 80%; animation-delay: 3s;">⚡</div>
+  <div class="emoji" style="top: 15%; animation-delay: 0s;">🐆</div>
+  <div class="emoji" style="top: 35%; animation-delay: 2s;">⚡</div>
+  <div class="emoji" style="top: 65%; animation-delay: 1s;">🐆</div>
+  <div class="emoji" style="top: 85%; animation-delay: 3s;">⚡</div>
 
-  <!-- Login container -->
+  <!-- Registration container -->
   <div class="bg-white bg-opacity-90 p-10 rounded-2xl shadow-2xl w-full max-w-md z-10">
-    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">🔒 Secure Login</h2>
-    <form method="POST" action="/login">
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">📝 Register</h2>
+    <form method="POST" action="/register">
       <div class="mb-4">
-        <label class="block text-gray-700">Name</label>
+        <label class="block text-gray-700">Full Name</label>
         <input name="name" required class="w-full p-2 rounded border" />
       </div>
       <div class="mb-4">
@@ -63,16 +63,16 @@
         <label class="block text-gray-700">Aadhaar Number</label>
         <input type="text" name="aadhaar" required maxlength="12" class="w-full p-2 rounded border" />
       </div>
-      <button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded w-full font-semibold">
-        Login
+      <button class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded w-full font-semibold">
+        Register
       </button>
-
-      <!-- Signup link -->
-      <p class="mt-4 text-center text-sm text-gray-700">
-        Don't have an account?
-        <a href="/register" class="text-green-600 font-semibold hover:underline">Sign up here</a>
-      </p>
     </form>
+
+    <!-- Link to login -->
+    <p class="mt-4 text-center text-sm text-gray-700">
+      Already have an account?
+      <a href="/login" class="text-blue-600 font-semibold hover:underline">Login here</a>
+    </p>
   </div>
 
 </body>
