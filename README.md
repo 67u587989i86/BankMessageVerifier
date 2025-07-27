@@ -20,13 +20,13 @@ A secure web application that allows users to log in and analyze suspicious bank
 
 
 
-## 🚀 How to Run
+## 🚀 How to Run Backend
 
 1. Clone the repo:
 
 ```bash
 git clone https://github.com/yourusername/bank-message-verifier.git
-cd bank-message-verifier
+cd bank-message-verifier/backend
 ```
 
 2. Install dependencies:
@@ -45,6 +45,13 @@ python app.py
 
 ```
 http://localhost:5000
+```
+
+## 🚀 How to Run frontend
+```
+1. cd bank-message-verifier/backend
+```
+2. streamlit run app.py
 ```
 
 ## 🚫 Disclaimer
